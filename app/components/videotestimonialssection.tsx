@@ -18,6 +18,12 @@ const videos = [
     poster: "/image copy 6.png", // ✅ ADD THIS
     caption: "I'm extremely...",
   },
+  {
+    id: 3,
+    src: "/videos/VID-20260131-WA0005.mp4",
+    poster: "/image copy 7.png", // ✅ ADD THIS
+    caption: "I'm extremely...",
+  },
 ];
 
 function VideoCard({
@@ -35,7 +41,7 @@ function VideoCard({
   return (
     <div
       className={`relative 
-        w-[50%] sm:w-52 md:w-[320px]
+        w-[100%] sm:w-52 md:w-[320px]
         flex-shrink-0 mt-4 rounded-2xl overflow-hidden shadow-2xl shadow-black/50 
         border-2 border-white bg-zinc-900 aspect-[9/16] 
         group cursor-pointer transition-all duration-500 
@@ -143,7 +149,7 @@ export default function VideoTestimonialsSection() {
           <span className="text-[#f35014]">Top Performing Affiliates</span>
         </h2>
 
-        <div className="flex justify-center gap-3 sm:gap-6 md:gap-8">
+        <div className="sm:flex  justify-center gap-3 sm:gap-6 md:gap-8">
           {videos.map((video) => (
             <VideoCard
               key={video.id}
