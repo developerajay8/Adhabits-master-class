@@ -48,6 +48,7 @@ export default function RootLayout({
             fbq('track', 'PageView');
           `}
         </Script>
+        
       </head>
       <body className="min-h-full flex flex-col">{children}
         {/* Noscript fallback */}

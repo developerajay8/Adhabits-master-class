@@ -4,7 +4,6 @@ import { useEffect } from "react";
 
 export default function LeadFormPopup({ open, setOpen }: any) {
 
-  // ✅ Background scroll lock
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -46,121 +45,92 @@ export default function LeadFormPopup({ open, setOpen }: any) {
     setOpen(false);
   };
 
-  // ❌ Prevent duplicate render
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-md p-3">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-md">
 
-      {/* Overlay click close */}
+      {/* Overlay */}
       <div
         className="absolute inset-0"
         onClick={() => setOpen(false)}
       />
 
-      {/* POPUP CARD */}
-      <div
-        className="relative w-full max-w-md sm:max-w-lg bg-[#0b0f1a] border border-[#f35014]/40 rounded-2xl p-5 sm:p-8 shadow-[0_0_60px_rgba(243,80,20,0.25)] animate-popup"
-        onClick={(e) => e.stopPropagation()} // ✅ prevent close on inside click
-      >
+      {/* SCROLL FIX CONTAINER */}
+      <div className="relative w-full h-full flex items-center justify-center p-4 overflow-y-auto">
 
-        {/* CLOSE */}
-        <button
-          onClick={() => setOpen(false)}
-          className="absolute top-3 right-3 sm:top-4 sm:right-4 text-white/70 hover:text-white text-lg sm:text-xl"
+        {/* POPUP CARD */}
+        <div
+          className="w-full max-w-md sm:max-w-lg bg-[#0b0f1a] border border-[#f35014]/40 rounded-2xl p-5 sm:p-8 shadow-[0_0_60px_rgba(243,80,20,0.25)] animate-popup"
+          onClick={(e) => e.stopPropagation()}
         >
-          ✕
-        </button>
 
-        {/* HEADER */}
-        <div className="mb-5 sm:mb-6 text-center">
-          <h2 className="text-white text-lg sm:text-2xl font-bold">
-            🚀 Start Your Affiliate Journey
-          </h2>
-          <p className="text-white/60 text-xs sm:text-sm mt-1">
-            Limited Seats — Apply Now For Free Access
-          </p>
-        </div>
+          {/* CLOSE */}
+          <button
+            onClick={() => setOpen(false)}
+            className="absolute top-3 right-3 text-white/70 hover:text-white text-lg"
+          >
+            ✕
+          </button>
 
-        {/* FORM */}
-        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
-
-          {/* Platform */}
-          <div>
-            <label className="text-white/70 text-xs text-left sm:text-sm mb-1 block">
-              Select Platform *
-            </label>
-           <select name="platform" required className="input">
-  <option value="">Choose your platform</option>
-
-  <option>IDP</option>
-  <option>Bizgurukul</option>
-  <option>LeadsArk</option>
-  <option>CareerFIXX</option>
-  <option>LeadsGuru</option>
-  <option>MillionaireTrack</option>
-  <option>Gyankmao</option>
-  <option>knowledgewaveindia</option>
-  <option>Starteazy</option>
-  <option>RichIND</option>
-  <option>Forever</option>
-  <option>Vastige</option>
-
-</select>
+          {/* HEADER */}
+          <div className="mb-5 text-center">
+            <h2 className="text-white text-lg sm:text-2xl font-bold">
+              🚀 Start Your Affiliate Journey
+            </h2>
+            <p className="text-white/60 text-xs sm:text-sm mt-1">
+              Limited Seats — Apply Now For Free Access
+            </p>
           </div>
 
-          {/* Name */}
-          <div>
-            <label className="text-white/70 text-left text-xs sm:text-sm mb-1 block">
-              Your Name *
-            </label>
-            <input
-              name="name"
-              required
-              placeholder="Enter your name"
-              className="input"
-            />
-          </div>
+          {/* FORM */}
+          <form onSubmit={handleSubmit} className="space-y-3">
 
-          {/* Phone */}
-          <div>
-            <label className="text-white/70 text-left text-xs sm:text-sm mb-1 block">
-              Phone Number *
-            </label>
+            <select name="platform" required className="input">
+              <option value="">Choose your platform</option>
+              <option>IDP</option>
+              <option>Bizgurukul</option>
+              <option>LeadsArk</option>
+              <option>CareerFIXX</option>
+              <option>LeadsGuru</option>
+              <option>MillionaireTrack</option>
+              <option>Gyankmao</option>
+              <option>knowledgewaveindia</option>
+              <option>Starteazy</option>
+              <option>RichIND</option>
+              <option>Forever</option>
+              <option>Vastige</option>
+            </select>
+
+            <input name="name" required placeholder="Your Name" className="input" />
+
             <input
               name="phone"
               required
               pattern="[0-9]{10}"
-              placeholder="Enter 10-digit number"
+              placeholder="Phone Number"
               className="input"
             />
-          </div>
 
-          {/* Earnings */}
-          <div>
-            <label className="text-white/70 text-left text-xs sm:text-sm mb-1 block">
-              Your Current Earnings
-            </label>
             <textarea
               name="message"
-              placeholder="e.g. 0 / 5k / 10k+ per month"
+              placeholder="Your total earnings (optional)"
               className="input resize-none"
             />
-          </div>
 
-          {/* CTA */}
-          <button
-            type="submit"
-            className="cursor-pointer w-full bg-[#f35014] hover:bg-[#ff6a2f] text-white py-3 rounded-xl font-semibold tracking-wide shadow-[0_0_30px_rgba(243,80,20,0.4)] transition-all duration-300 active:scale-95"
-          >
-            🚀 Apply Now — It’s Free
-          </button>
-        </form>
+            <button
+              type="submit"
+              className="w-full bg-[#f35014] hover:bg-[#ff6a2f] text-white py-3 rounded-xl font-semibold"
+            >
+              🚀 Apply Now — It’s Free
+            </button>
 
-        {/* FOOTER */}
-        <p className="text-center text-[10px] sm:text-xs text-white/40 mt-3 sm:mt-4">
-          🔒 Your data is safe. No spam.
-        </p>
+          </form>
+
+          <p className="text-center text-xs text-white/40 mt-3">
+            🔒 Your data is safe. No spam.
+          </p>
+        </div>
       </div>
 
       {/* STYLES */}
@@ -193,7 +163,7 @@ export default function LeadFormPopup({ open, setOpen }: any) {
         }
 
         .animate-popup {
-          animation: popup 0.35s ease;
+          animation: popup 0.3s ease;
         }
       `}</style>
     </div>
