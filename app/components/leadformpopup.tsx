@@ -98,7 +98,6 @@ I want to attend Masterclass ✅:
             <input
               name="phone"
               required
-              pattern="[0-9]{10}"
               placeholder="Phone Number"
               className="input"
             />
