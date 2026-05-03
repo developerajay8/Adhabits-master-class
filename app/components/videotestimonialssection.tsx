@@ -12,18 +12,17 @@ const videos = [
     poster: "/image copy 8.png",
     caption: "I'm extremely...",
   },
-  
   {
     id: 2,
-    src: "/videos/IMG_4275.MP4",
-    poster: "/image copy 5.png",
-    caption: "Hey this is...",
-  },
-  {
-    id: 3,
     src: "/videos/IMG_5203.MP4",
     poster: "/image copy 6.png",
     caption: "I'm extremely...",
+  },
+  {
+    id: 3,
+    src: "/videos/IMG_4275.MP4",
+    poster: "/image copy 5.png",
+    caption: "Hey this is...",
   },
   {
     id: 4,
