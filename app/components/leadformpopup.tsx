@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 export default function LeadFormPopup({ open, setOpen }: any) {
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -12,6 +11,10 @@ export default function LeadFormPopup({ open, setOpen }: any) {
     } else {
       document.body.style.overflow = "auto";
     }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [open]);
 
   const handleSubmit = async (e: any) => {
@@ -27,20 +30,7 @@ export default function LeadFormPopup({ open, setOpen }: any) {
       message: form.message.value,
     };
 
-    const text = `🔥 Hey I'm interested 
-I want to attend Masterclass ✅:
-👤 Name: ${data.name}
-📞 Phone: ${data.phone}
-📱 Platform: ${data.platform}
-💰 Earning: ${data.message}`;
-
-    // ✅ INSTANT WhatsApp redirect (NO DELAY)
-    window.open(
-      `https://wa.me/919610580359?text=${encodeURIComponent(text)}`,
-      "_blank"
-    );
-
-    // ✅ Background API call (user wait nahi karega)
+    // ✅ Google Sheet API Call
     fetch(
       "https://script.google.com/macros/s/AKfycbwe4XOca0hL1zxVUEueULq3VD-Rh2TQy_ywruLEQyNOVe9RGc_84Pva0tzMSQs7EzeAUw/exec",
       {
@@ -49,7 +39,13 @@ I want to attend Masterclass ✅:
       }
     ).catch(() => {});
 
-    // ✅ Close popup instantly
+    // ✅ Redirect To WhatsApp Community
+    window.open(
+      "https://chat.whatsapp.com/FyBFvsaKEjm1clLmUerx6T",
+      "_blank"
+    );
+
+    // ✅ Close Popup
     setOpen(false);
     setLoading(false);
   };
@@ -58,7 +54,7 @@ I want to attend Masterclass ✅:
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-md">
-
+      
       {/* Overlay */}
       <div
         className="absolute inset-0"
@@ -66,16 +62,16 @@ I want to attend Masterclass ✅:
       />
 
       <div className="relative w-full h-full flex items-center justify-center p-4 overflow-y-auto">
-
+        
         <div
-          className="w-full max-w-md sm:max-w-lg bg-[#0b0f1a] border border-[#f35014]/40 rounded-2xl p-5 sm:p-8 shadow-[0_0_60px_rgba(243,80,20,0.25)] animate-popup"
+          className="relative w-full max-w-md sm:max-w-lg bg-[#0b0f1a] border border-[#f35014]/40 rounded-2xl p-5 sm:p-8 shadow-[0_0_60px_rgba(243,80,20,0.25)] animate-popup"
           onClick={(e) => e.stopPropagation()}
         >
-
-          {/* CLOSE */}
+          
+          {/* CLOSE BUTTON */}
           <button
             onClick={() => setOpen(false)}
-            className="absolute top-3 right-3 text-white/70 hover:text-white text-lg"
+            className="absolute top-3 right-3 text-white/70 hover:text-white text-lg transition"
           >
             ✕
           </button>
@@ -85,6 +81,7 @@ I want to attend Masterclass ✅:
             <h2 className="text-white text-lg sm:text-2xl font-bold">
               🚀 Start Your Affiliate Journey
             </h2>
+
             <p className="text-white/60 text-xs sm:text-sm mt-1">
               Limited Seats — Apply Now For Free Access
             </p>
@@ -93,7 +90,12 @@ I want to attend Masterclass ✅:
           {/* FORM */}
           <form onSubmit={handleSubmit} className="space-y-3">
 
-            <input name="name" required placeholder="Your Name" className="input" />
+            <input
+              name="name"
+              required
+              placeholder="Your Name"
+              className="input"
+            />
 
             <input
               name="phone"
@@ -102,8 +104,13 @@ I want to attend Masterclass ✅:
               className="input"
             />
 
-            <select name="platform" required className="input">
+            <select
+              name="platform"
+              required
+              className="input"
+            >
               <option value="">Choose your platform</option>
+
               <option>IDP</option>
               <option>Bizgurukul</option>
               <option>LeadsArk</option>
@@ -122,19 +129,23 @@ I want to attend Masterclass ✅:
               name="message"
               placeholder="Your total earnings (optional)"
               className="input resize-none"
+              rows={4}
             />
 
-            {/* ✅ BUTTON WITH LOADING */}
+            {/* SUBMIT BUTTON */}
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-3 rounded-xl font-semibold transition-all duration-300 
-              ${loading 
-                ? "bg-gray-600 cursor-not-allowed animate-pulse" 
-                : "bg-[#f35014] hover:bg-[#ff6a2f] cursor-pointer"
+              className={`w-full py-3 rounded-xl font-semibold transition-all duration-300
+              ${
+                loading
+                  ? "bg-gray-600 cursor-not-allowed animate-pulse"
+                  : "bg-[#f35014] hover:bg-[#ff6a2f] cursor-pointer"
               } text-white`}
             >
-              {loading ? "Submitting..." : "🚀 Apply Now — It’s Free"}
+              {loading
+                ? "Submitting..."
+                : "🚀 Join WhatsApp Community"}
             </button>
 
           </form>
@@ -151,11 +162,12 @@ I want to attend Masterclass ✅:
           width: 100%;
           background: #020617;
           border: 1px solid rgba(243, 80, 20, 0.4);
-          padding: 10px 12px;
-          border-radius: 8px;
+          padding: 12px 14px;
+          border-radius: 10px;
           color: white;
           font-size: 14px;
           outline: none;
+          transition: 0.3s;
         }
 
         .input:focus {
